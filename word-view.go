@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crossword-service/crossword_generator"
 	"strings"
 )
 
@@ -26,6 +27,15 @@ func (s word) CreatePositionedWordView(x int, y int) *PositionedWordView {
 	w.Value = strings.ToUpper(string(s))
 	w.X = x
 	w.Y = y
+
+	return w
+}
+
+func CreatePositionedWordViewFromTableWord(wr *crossword_generator.TableWord) *PositionedWordView {
+	w := new(PositionedWordView)
+	w.Value = string(wr.Word.Value)
+	w.X = wr.X
+	w.Y = wr.Y
 
 	return w
 }
