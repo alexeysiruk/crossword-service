@@ -8,7 +8,7 @@ import (
 
 const WordTablesCountLimit int = 5000
 
-func MainLoop(words []*Word) []*WordsTable {
+func CalculateCrosswordTables(words []*Word) []*WordsTable {
 	wordsTable := NewWordsTable()
 
 	firstWord := words[0]

@@ -48,18 +48,17 @@ func (h *Handler) CreateCrossword(c *gin.Context) {
 
 	var words []*crs.Word = crs.CrissCross27{}.GetWords()
 
-	var resultingTables []*crs.WordsTable = crs.MainLoop(words)
+	var resultingTables []*crs.WordsTable = crs.CalculateCrosswordTables(words)
 
 	var horizontalWords []PositionedWordView = make([]PositionedWordView, 0)
 	var verticalWords []PositionedWordView = make([]PositionedWordView, 0)
 
-	for _, word := range resultingTables[0].GetHorizontalWords() {
-		horizontalWords = append(horizontalWords, MakePositionedWordViewFromTableWord(word))
+	for _, horizontalTableWord := range resultingTables[0].GetHorizontalWords() {
+		horizontalWords = append(horizontalWords, MakePositionedWordViewFromTableWord(horizontalTableWord))
 	}
 
-	for _, word := range resultingTables[0].GetVerticalWords() {
-		valueOfTypeTabword := tabword(*word)
-		verticalWords = append(verticalWords, (&valueOfTypeTabword).MakePositionedWordViewFromTableWord())
+	for _, verticalTableWord := range resultingTables[0].GetVerticalWords() {
+		verticalWords = append(verticalWords, MakePositionedWordViewFromTableWord(verticalTableWord))
 	}
 
 	var exampleCrossword2 CrosswordView = CrosswordView{

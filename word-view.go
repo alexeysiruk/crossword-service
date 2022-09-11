@@ -39,14 +39,3 @@ func MakePositionedWordViewFromTableWord(wr *crosswd.TableWord) PositionedWordVi
 
 	return w
 }
-
-type tabword crosswd.TableWord
-
-func (wr *tabword) MakePositionedWordViewFromTableWord() PositionedWordView {
-	w := PositionedWordView{}
-	w.Value = string(wr.Word.Value)
-	w.X = wr.X
-	w.Y = wr.Y
-
-	return w
-}
