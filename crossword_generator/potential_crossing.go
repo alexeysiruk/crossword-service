@@ -1,4 +1,4 @@
-package crossword_generator
+package crosswd
 
 type PotentialCrossing[T WordReference, U WordReference] struct {
 	*CrossingPoint[T]

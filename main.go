@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"crossword-service/crossword_generator"
+	crs "crossword-service/crossword_generator"
 
 	"github.com/gin-gonic/gin"
 )
@@ -46,24 +46,25 @@ func (h *Handler) CreateCrossword(c *gin.Context) {
 	// 	words = append(words, NewWord(stringWord))
 	// }
 
-	var words []*crossword_generator.Word = crossword_generator.CrissCross27{}.GetWords()
+	var words []*crs.Word = crs.CrissCross27{}.GetWords()
 
-	var resultingTables []*crossword_generator.WordsTable = crossword_generator.MainLoop(words)
+	var resultingTables []*crs.WordsTable = crs.MainLoop(words)
 
 	var horizontalWords []PositionedWordView = make([]PositionedWordView, 0)
 	var verticalWords []PositionedWordView = make([]PositionedWordView, 0)
 
 	for _, word := range resultingTables[0].GetHorizontalWords() {
-		horizontalWords = append(horizontalWords, *CreatePositionedWordViewFromTableWord(word))
+		horizontalWords = append(horizontalWords, MakePositionedWordViewFromTableWord(word))
 	}
 
 	for _, word := range resultingTables[0].GetVerticalWords() {
-		verticalWords = append(verticalWords, *CreatePositionedWordViewFromTableWord(word))
+		valueOfTypeTabword := tabword(*word)
+		verticalWords = append(verticalWords, (&valueOfTypeTabword).MakePositionedWordViewFromTableWord())
 	}
 
 	var exampleCrossword2 CrosswordView = CrosswordView{
-		SizeHorizontal:  crossword_generator.HorizontalSize,
-		SizeVertical:    crossword_generator.VerticalSize,
+		SizeHorizontal:  crs.HorizontalSize,
+		SizeVertical:    crs.VerticalSize,
 		HorizontalWords: horizontalWords,
 		VerticalWords:   verticalWords,
 	}
@@ -72,15 +73,15 @@ func (h *Handler) CreateCrossword(c *gin.Context) {
 }
 
 var exampleCrossword1 CrosswordView = CrosswordView{
-	SizeHorizontal: crossword_generator.HorizontalSize,
-	SizeVertical:   crossword_generator.VerticalSize,
+	SizeHorizontal: crs.HorizontalSize,
+	SizeVertical:   crs.VerticalSize,
 	HorizontalWords: []PositionedWordView{
 		*(word("sator").CreatePositionedWordView(10, 10)),
-		*CreatePositionedWordView("tenet", 10, 12),
-		*CreatePositionedWordView("rotas", 10, 14),
+		MakePositionedWordView("tenet", 10, 12),
+		MakePositionedWordView("rotas", 10, 14),
 	},
 	VerticalWords: []PositionedWordView{
-		*CreatePositionedWordView("arepo", 11, 10),
-		*CreatePositionedWordView("opera", 13, 10),
+		MakePositionedWordView("arepo", 11, 10),
+		MakePositionedWordView("opera", 13, 10),
 	},
 }

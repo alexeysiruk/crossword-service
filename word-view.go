@@ -1,7 +1,7 @@
 package main
 
 import (
-	"crossword-service/crossword_generator"
+	crosswd "crossword-service/crossword_generator"
 	"strings"
 )
 
@@ -11,8 +11,8 @@ type PositionedWordView struct {
 	Y     int    `json:"y"`
 }
 
-func CreatePositionedWordView(value string, x int, y int) *PositionedWordView {
-	w := new(PositionedWordView)
+func MakePositionedWordView(value string, x int, y int) PositionedWordView {
+	w := PositionedWordView{}
 	w.Value = strings.ToUpper(value)
 	w.X = x
 	w.Y = y
@@ -31,8 +31,19 @@ func (s word) CreatePositionedWordView(x int, y int) *PositionedWordView {
 	return w
 }
 
-func CreatePositionedWordViewFromTableWord(wr *crossword_generator.TableWord) *PositionedWordView {
-	w := new(PositionedWordView)
+func MakePositionedWordViewFromTableWord(wr *crosswd.TableWord) PositionedWordView {
+	w := PositionedWordView{}
+	w.Value = string(wr.Word.Value)
+	w.X = wr.X
+	w.Y = wr.Y
+
+	return w
+}
+
+type tabword crosswd.TableWord
+
+func (wr *tabword) MakePositionedWordViewFromTableWord() PositionedWordView {
+	w := PositionedWordView{}
 	w.Value = string(wr.Word.Value)
 	w.X = wr.X
 	w.Y = wr.Y

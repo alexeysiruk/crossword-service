@@ -1,4 +1,4 @@
-package crossword_generator
+package crosswd
 
 type CrissCross27 struct{}
 

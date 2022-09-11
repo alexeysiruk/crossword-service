@@ -1,4 +1,4 @@
-package crossword_generator
+package crosswd
 
 type TableWord struct {
 	*Word
