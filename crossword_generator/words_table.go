@@ -62,18 +62,11 @@ func CloneWordsTable(oldWordsTable *WordsTable) *WordsTable {
 }
 
 func (t *WordsTable) GetHorizontalWords() []*TableWord {
-	// result := make([]*TableWord, 0)
-
-	// result = append(result, t.horizontalWords...)
-
 	return t.horizontalWords
 }
 
 func (t *WordsTable) GetVerticalWords() []*TableWord {
-	result := make([]*TableWord, len(t.verticalWords))
-	copy(result, t.verticalWords)
-
-	return result
+	return t.verticalWords
 }
 
 func (t *WordsTable) String() string {
