@@ -16,7 +16,7 @@ func main() {
 	router := gin.Default()
 	router.POST("/crosswords", handler.CreateCrossword)
 
-	router.Run()
+	router.Run(":9090")
 }
 
 type ErrorResponse struct {
